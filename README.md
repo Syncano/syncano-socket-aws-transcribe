@@ -1,0 +1,1 @@
+# syncano-socket-aws-transcribe
