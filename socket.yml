@@ -1,0 +1,164 @@
+name: aws-transcribe
+description: Amazon transcribe syncano socket
+long_description: |
+  Visit link to know more about Amazon Transcribe automatic speec recognition
+  https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html
+version: 0.0.1
+runtime: nodejs_v8
+keywords:
+  - aws
+  - transcribe
+  - speech-to-text
+  - speech recognition
+
+config:
+  AWS_REGION:
+    description: AWS region
+    long_description: >
+      Check link below for aws comprehend available regions
+      (https://docs.aws.amazon.com/comprehend/latest/dg/guidelines-and-limits.html)
+    required: true
+  AWS_SECRET_ACCESS_KEY:
+    description: AWS secret access key
+    long_description: |
+      Visit link to know more about managing keys
+      (http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html).
+    required: true
+  AWS_ACCESS_KEY_ID:
+    description: AWS access key id
+    long_description: |
+      Visit link to know more about managing keys
+      (http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html).
+    required: true
+
+endpoints:
+  start-transcription-job:
+    description: Endpoint that starts an asynchronous job to transcribe speech to text
+    parameters:
+      TranscriptionJobName:
+        type: string
+        description: The name of the job. The name must be unique within an AWS account.
+        example: job1
+      LanguageCode:
+        type: string
+        description: The language code for the language used in the input media file.
+        example: en-US
+      Media:
+        type: object
+        description: An object that describes the input media for a transcription job.
+        example: |
+          {
+            "MediaFileUri" : "string(The S3 location of the input media file)"
+          }
+      MediaFormat:
+        type: string
+        description: The format of the input media file.
+        example: mp4
+      MediaSampleRateHertz:
+        type: integer
+        description: The sample rate, in Hertz, of the audio track in the input media file.
+        example: 0
+    response:
+      success:
+        description: Success
+        example: |
+          {
+            "TranscriptionJob": {
+              "CompletionTime": number,
+              "CreationTime": number,
+              "FailureReason": "string",
+              "LanguageCode": "string",
+              "Media": {
+                 "MediaFileUri": "string"
+              },
+              "MediaFormat": "string",
+              "MediaSampleRateHertz": number,
+              "Transcript": {
+                 "TranscriptFileUri": "string"
+              },
+              "TranscriptionJobName": "string",
+              "TranscriptionJobStatus": "string"
+            }
+          }
+      fail:
+        exit_code: 400
+        description: Failed
+        example: |
+          {
+            "message": "You have to send "firstname" and "lastname" arguments!"
+          }
+  get-transcription-job:
+    description: Endpoint that returns information about a transcription job.
+    parameters:
+      TranscriptionJobName:
+        type: string
+        description: The name of the transcription job.
+        example: job1
+    response:
+      success:
+        description: Success
+        example: |
+          {
+            "TranscriptionJob": {
+              "CompletionTime": number,
+              "CreationTime": number,
+              "FailureReason": "string",
+              "LanguageCode": "string",
+              "Media": {
+                 "MediaFileUri": "string"
+              },
+              "MediaFormat": "string",
+              "MediaSampleRateHertz": number,
+              "Transcript": {
+                 "TranscriptFileUri": "string"
+              },
+              "TranscriptionJobName": "string",
+              "TranscriptionJobStatus": "string"
+            }
+          }
+      fail:
+        exit_code: 400
+        description: Failed
+        example: |
+          {
+            "message": "You have to send "firstname" and "lastname" arguments!"
+          }
+  list-transcription-jobs:
+    description: Endpoint that lists transcription jobs with the specified status.
+    parameters:
+      Status:
+        type: string
+        description: The status of a job. When specified, returns only transcription jobs with the specified status.
+        example: IN_PROGRESS / FAILED / COMPLETED
+      NextToken:
+        type: string
+        description: Include the NextToken to fetch the next set of jobs (Optional).
+      MaxResults:
+        type: integer
+        description: The maximum number of jobs to return in the response (Optional).
+        example: 0
+    response:
+      success:
+        description: Success
+        example: |
+          {
+            "NextToken": "string",
+            "Status": "string",
+            "TranscriptionJobSummaries": [
+              {
+                "CompletionTime": number,
+                "CreationTime": number,
+                "FailureReason": "string",
+                "LanguageCode": "string",
+                "TranscriptionJobName": "string",
+                "TranscriptionJobStatus": "string"
+              }
+            ]
+          }
+      fail:
+        exit_code: 400
+        description: Failed
+        example: |
+          {
+            "message": "You have to send "firstname" and "lastname" arguments!"
+          }
