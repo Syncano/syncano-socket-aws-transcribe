@@ -1,4 +1,6 @@
 # aws-transcribe
+[![CircleCI](https://circleci.com/gh/Syncano/syncano-socket-aws-transcribe.svg?style=svg)](https://circleci.com/gh/Syncano/syncano-socket-aws-transcribe)
+
 
 `version:` **0.0.1**
 
