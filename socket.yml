@@ -9,7 +9,7 @@ keywords:
   - aws
   - transcribe
   - speech-to-text
-  - speech recognition
+  - speech-recognition
 
 config:
   AWS_REGION:
@@ -59,34 +59,39 @@ endpoints:
         description: The sample rate, in Hertz, of the audio track in the input media file.
         example: 0
     response:
-      success:
-        description: Success
-        example: |
-          {
-            "TranscriptionJob": {
-              "CompletionTime": number,
-              "CreationTime": number,
-              "FailureReason": "string",
-              "LanguageCode": "string",
-              "Media": {
-                 "MediaFileUri": "string"
-              },
-              "MediaFormat": "string",
-              "MediaSampleRateHertz": number,
-              "Transcript": {
-                 "TranscriptFileUri": "string"
-              },
-              "TranscriptionJobName": "string",
-              "TranscriptionJobStatus": "string"
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              "TranscriptionJob": {
+                "CompletionTime": number,
+                "CreationTime": number,
+                "FailureReason": "string",
+                "LanguageCode": "string",
+                "Media": {
+                   "MediaFileUri": "string"
+                },
+                "MediaFormat": "string",
+                "MediaSampleRateHertz": number,
+                "Transcript": {
+                   "TranscriptFileUri": "string"
+                },
+                "TranscriptionJobName": "string",
+                "TranscriptionJobStatus": "string"
+              }
             }
-          }
-      fail:
-        exit_code: 400
-        description: Failed
-        example: |
-          {
-            "message": "You have to send "firstname" and "lastname" arguments!"
-          }
+        -
+          exit_code: 400
+          description: Failed
+          example: |
+            {
+              "message": "Missing required key 'TranscriptionJobName' in params",
+              "code": "MissingRequiredParameter",
+              ...
+            }
   get-transcription-job:
     description: Endpoint that returns information about a transcription job.
     parameters:
@@ -95,34 +100,39 @@ endpoints:
         description: The name of the transcription job.
         example: job1
     response:
-      success:
-        description: Success
-        example: |
-          {
-            "TranscriptionJob": {
-              "CompletionTime": number,
-              "CreationTime": number,
-              "FailureReason": "string",
-              "LanguageCode": "string",
-              "Media": {
-                 "MediaFileUri": "string"
-              },
-              "MediaFormat": "string",
-              "MediaSampleRateHertz": number,
-              "Transcript": {
-                 "TranscriptFileUri": "string"
-              },
-              "TranscriptionJobName": "string",
-              "TranscriptionJobStatus": "string"
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              "TranscriptionJob": {
+                "CompletionTime": number,
+                "CreationTime": number,
+                "FailureReason": "string",
+                "LanguageCode": "string",
+                "Media": {
+                   "MediaFileUri": "string"
+                },
+                "MediaFormat": "string",
+                "MediaSampleRateHertz": number,
+                "Transcript": {
+                   "TranscriptFileUri": "string"
+                },
+                "TranscriptionJobName": "string",
+                "TranscriptionJobStatus": "string"
+              }
             }
-          }
-      fail:
-        exit_code: 400
-        description: Failed
-        example: |
-          {
-            "message": "You have to send "firstname" and "lastname" arguments!"
-          }
+        -
+          exit_code: 400
+          description: Failed
+          example: |
+            {
+              "message": "Missing required key 'TranscriptionJobName' in params",
+              "code": "MissingRequiredParameter",
+              ...
+            }
   list-transcription-jobs:
     description: Endpoint that lists transcription jobs with the specified status.
     parameters:
@@ -138,27 +148,32 @@ endpoints:
         description: The maximum number of jobs to return in the response (Optional).
         example: 0
     response:
-      success:
-        description: Success
-        example: |
-          {
-            "NextToken": "string",
-            "Status": "string",
-            "TranscriptionJobSummaries": [
-              {
-                "CompletionTime": number,
-                "CreationTime": number,
-                "FailureReason": "string",
-                "LanguageCode": "string",
-                "TranscriptionJobName": "string",
-                "TranscriptionJobStatus": "string"
-              }
-            ]
-          }
-      fail:
-        exit_code: 400
-        description: Failed
-        example: |
-          {
-            "message": "You have to send "firstname" and "lastname" arguments!"
-          }
+      mimetype: application/json
+      examples:
+        -
+          exit_code: 200
+          description: Success
+          example: |
+            {
+              "NextToken": "string",
+              "Status": "string",
+              "TranscriptionJobSummaries": [
+                {
+                  "CompletionTime": number,
+                  "CreationTime": number,
+                  "FailureReason": "string",
+                  "LanguageCode": "string",
+                  "TranscriptionJobName": "string",
+                  "TranscriptionJobStatus": "string"
+                }
+              ]
+            }
+        -
+          exit_code: 400
+          description: Failed
+          example: |
+            {
+              "message": "Missing required key 'Status' in params",
+              "code": "MissingRequiredParameter",
+              ...
+            }
