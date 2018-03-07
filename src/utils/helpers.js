@@ -25,7 +25,6 @@ const callEndpoint = (endpoint, params, awsConfig) => {
   return new Promise((resolve, reject) => {
     awsTranscribeConfig(awsConfig)[endpoint](params, (error, data) => {
       if (error) {
-        console.log(error, error.stack); // an error occurred
         const statusCode = (error.statusCode) ? error.statusCode : 400;
         reject({ error, statusCode });
       } else {
