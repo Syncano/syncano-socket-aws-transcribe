@@ -54,7 +54,7 @@ jobs:
     steps:
       - restore_cache:
           key: v6-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - add_ssh_keys
+      - add_ssh_keys:
           fingerprints:
             - "1f:22:76:e3:e3:47:58:a1:28:a4:9c:0b:a0:eb:04:a1"
       - run: npx s submit ${SOCKET_NAME} -b patch
