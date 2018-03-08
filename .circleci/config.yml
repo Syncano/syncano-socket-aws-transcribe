@@ -16,7 +16,6 @@ jobs:
           - v6-dependencies-{{ checksum "package.json" }}
 
       - run: npm install
-      - run: npm install @syncano/cli@canary --no-save
 
       - save_cache:
           paths:
@@ -57,6 +56,7 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "1f:22:76:e3:e3:47:58:a1:28:a4:9c:0b:a0:eb:04:a1"
+      - run: npm install @syncano/cli@canary --no-save
       - run: npx s submit ${SOCKET_NAME} -b patch
       - run: npx s publish ${SOCKET_NAME}
       - run:
