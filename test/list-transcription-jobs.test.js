@@ -1,36 +1,32 @@
-import request from 'supertest';
 import { expect } from 'chai';
-import nock from 'nock';
+import { run } from 'syncano-test';
 import 'dotenv/config';
 
-import { LIST_TRANSCRIBE_RESPONSE } from './utils/helpers';
+const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION } = process.env;
+
+const config = { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION };
 
 const args = {
-  Status: 'IN_PROGRESS'
+  Status: 'COMPLETED'
 };
 
 describe('list-transcription-jobs', () => {
-  const { LIST_TRANSCRIBE_URL } = process.env;
+  it('should return lists transcription jobs with the specified status', async () => {
+    const { data: transcribedJobList, code } = await run('list-transcription-jobs', { args, config });
+    expect(code).to.equal(200);
+    expect(transcribedJobList).to.have.property('Status');
+    expect(transcribedJobList.Status).to.equal('COMPLETED');
+    expect(transcribedJobList).to.have.property('TranscriptionJobSummaries');
+    expect(transcribedJobList.TranscriptionJobSummaries).to.be.an.instanceof(Array);
+  });
 
-  it('should return lists transcription jobs with the specified status', (done) => {
-    nock(LIST_TRANSCRIBE_URL)
-      .post('/', args)
-      .reply(200, LIST_TRANSCRIBE_RESPONSE);
-
-    request(LIST_TRANSCRIBE_URL)
-      .post('/')
-      .send(args)
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err);
-        const transcribedJobList = res.body;
-        expect(transcribedJobList).to.have.property('Status');
-        expect(transcribedJobList.Status).to.equal('IN_PROGRESS');
-        expect(transcribedJobList).to.have.property('TranscriptionJobSummaries');
-        expect(transcribedJobList.TranscriptionJobSummaries).to.be.an.instanceof(Array);
-        done();
-      });
-
-    nock.cleanAll();
+  it('should return message "ValidationException" if wrong Status parameter passed', async () => {
+    const argsValidation = { ...args, Status: 'WRONG_ENUM_VALUE' };
+    const { data, code } = await run('list-transcription-jobs', { args: argsValidation, config });
+    expect(code).to.equal(400);
+    expect(data).to.have.property('message');
+    expect(data).to.have.property('retryable');
+    expect(data).to.have.property('code');
+    expect(data.code).to.equal('ValidationException');
   });
 });

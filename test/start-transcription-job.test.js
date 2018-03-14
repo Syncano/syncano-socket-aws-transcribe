@@ -3,8 +3,6 @@ import { expect } from 'chai';
 import nock from 'nock';
 import 'dotenv/config';
 
-import { START_TRANSCRIBE_RESPONSE } from './utils/helpers';
-
 const args = {
   LanguageCode: 'en-US',
   Media: {
@@ -12,6 +10,19 @@ const args = {
   },
   MediaFormat: 'mp4',
   TranscriptionJobName: 'job-test'
+};
+
+const START_TRANSCRIBE_RESPONSE = {
+  TranscriptionJob: {
+    TranscriptionJobName: 'job-test',
+    TranscriptionJobStatus: 'IN_PROGRESS',
+    LanguageCode: 'en-US',
+    MediaFormat: 'mp4',
+    Media: {
+      MediaFileUri: 'https://s3.us-east-1.amazonaws.com/bucket-test/video.mp4'
+    },
+    CreationTime: '2018-03-07T08:48:19.232Z'
+  }
 };
 
 describe('start-transcription-job', () => {
