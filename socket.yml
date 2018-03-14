@@ -1,7 +1,7 @@
 name: aws-transcribe
-description: Amazon transcribe syncano socket
+description: Amazon transcribe Syncano Socket
 long_description: |
-  Visit link to know more about Amazon Transcribe automatic speec recognition
+  Visit link to know more about Amazon Transcribe automatic speech recognition
   https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html
 version: 0.0.1
 runtime: nodejs_v8
@@ -33,6 +33,7 @@ config:
 
 endpoints:
   start-transcription-job:
+    private: true
     description: Endpoint that starts an asynchronous job to transcribe speech to text
     parameters:
       TranscriptionJobName:
@@ -56,8 +57,8 @@ endpoints:
         example: mp4
       MediaSampleRateHertz:
         type: integer
-        description: The sample rate, in Hertz, of the audio track in the input media file.
-        example: 0
+        description: The sample rate, in Hertz, of the audio track in the input media file (Optional).
+        example: 9000
     response:
       mimetype: application/json
       examples:
@@ -93,6 +94,7 @@ endpoints:
               ...
             }
   get-transcription-job:
+    private: true
     description: Endpoint that returns information about a transcription job.
     parameters:
       TranscriptionJobName:
@@ -134,6 +136,7 @@ endpoints:
               ...
             }
   list-transcription-jobs:
+    private: true
     description: Endpoint that lists transcription jobs with the specified status.
     parameters:
       Status:
@@ -146,7 +149,7 @@ endpoints:
       MaxResults:
         type: integer
         description: The maximum number of jobs to return in the response (Optional).
-        example: 0
+        example: 10
     response:
       mimetype: application/json
       examples:
