@@ -3,7 +3,7 @@ description: Amazon transcribe Syncano Socket
 long_description: |
   Visit link to know more about Amazon Transcribe automatic speech recognition
   https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html
-version: 0.0.1
+version: 0.0.2
 runtime: nodejs_v8
 keywords:
   - aws
