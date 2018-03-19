@@ -10,7 +10,6 @@
     "build:src": "sh ./bin/compile",
     "build:env": "sh ./bin/compile-env",
     "test:e2e": "cross-env NODE_ENV=test nyc --reporter=html mocha --opts ./test/utils/mocha.opts ./test/*.js",
-    "test:e2e2": "cross-env NODE_ENV=test nyc --reporter=html mocha --opts ./test/utils/mocha.opts ./test/list-transcription-jobs.test.js",
     "test": "npm run lint && npm run test:e2e && nyc report",
     "lint": "esw src test"
   },
