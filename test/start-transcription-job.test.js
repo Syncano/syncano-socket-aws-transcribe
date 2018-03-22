@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { run } from 'syncano-test';
+import { run } from '@syncano/test';
 import 'dotenv/config';
 
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, TEST_S3_VIDEO } = process.env;
@@ -18,7 +18,6 @@ const args = {
 describe('start-transcription-job', () => {
   it('should start a transcription job if valid parameters supplied', async () => {
     const { data: transcribeJob, code } = await run('start-transcription-job', { args, config });
-    expect(code).to.equal(200);
     expect(transcribeJob).to.have.property('TranscriptionJob');
     expect(transcribeJob.TranscriptionJob).to.have.property('TranscriptionJobStatus');
     expect(transcribeJob.TranscriptionJob.TranscriptionJobStatus).to.equal('IN_PROGRESS');

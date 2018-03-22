@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { run } from 'syncano-test';
+import { run } from '@syncano/test';
 import 'dotenv/config';
 
 const config = process.env;
