@@ -18,6 +18,7 @@ const args = {
 describe('start-transcription-job', () => {
   it('should start a transcription job if valid parameters supplied', async () => {
     const { data: transcribeJob, code } = await run('start-transcription-job', { args, config });
+    expect(code).to.equal(200);
     expect(transcribeJob).to.have.property('TranscriptionJob');
     expect(transcribeJob.TranscriptionJob).to.have.property('TranscriptionJobStatus');
     expect(transcribeJob.TranscriptionJob.TranscriptionJobStatus).to.equal('IN_PROGRESS');

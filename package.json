@@ -14,6 +14,7 @@
     "lint": "esw src test"
   },
   "dependencies": {
+    "@syncano/cli": "^0.11.0",
     "@syncano/core": "latest",
     "aws-sdk": "^2.205.0"
   },
