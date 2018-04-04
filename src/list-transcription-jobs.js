@@ -1,8 +1,8 @@
-import Server from '@syncano/core';
+import Syncano from '@syncano/core';
 import callEndpoint from './utils/helpers';
 
 export default async (ctx) => {
-  const { response } = new Server(ctx);
+  const { response } = new Syncano(ctx);
   try {
     const { statusCode, data } = await callEndpoint('listTranscriptionJobs', ctx.args, ctx.config);
     return response.json(data, statusCode);

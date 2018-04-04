@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { run } from 'syncano-test';
+import { run } from '@syncano/test';
 import 'dotenv/config';
 
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, TEST_S3_VIDEO } = process.env;
