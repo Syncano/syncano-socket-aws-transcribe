@@ -3,7 +3,7 @@ description: Amazon transcribe Syncano Socket
 long_description: |
   Visit link to know more about Amazon Transcribe automatic speech recognition
   https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html
-version: 0.0.3
+version: 0.0.4
 runtime: nodejs_v8
 keywords:
   - aws
@@ -32,7 +32,6 @@ config:
 
       (http://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html).
     required: true
-
 endpoints:
   start-transcription-job:
     private: true
@@ -61,8 +60,8 @@ endpoints:
         MediaSampleRateHertz:
           type: integer
           description: >-
-            The sample rate, in Hertz, of the audio track in the input media file
-            (Optional).
+            The sample rate, in Hertz, of the audio track in the input media
+            file (Optional).
           example: 9000
     outputs:
       success:
@@ -160,7 +159,6 @@ endpoints:
                   "code": "MissingRequiredParameter",
                   ...
                 }
-
   list-transcription-jobs:
     private: true
     description: Endpoint that lists transcription jobs with the specified status.
